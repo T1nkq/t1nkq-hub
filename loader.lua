@@ -1,3 +1,35 @@
-local b = {104,116,116,112,115,58,47,47,116,49,110,107,113,45,104,117,98,46,122,97,112,97,100,117,110,115,107,105,121,49,51,53,52,46,119,111,114,107,101,114,115,46,100,101,118,47,108,111,97,100,101,114}
-local u = string.char((unpack or table.unpack)(b))
-loadstring(game:HttpGet(u .. "?t=" .. tostring(tick())))()
+-- t1nkq hub | Loader
+local LOADER_URL = "https://t1nkq-hub.t1nkq.workers.dev/loader?t=" .. tostring(math.floor(tick()))
+
+local function notifyError(msg)
+    warn("[t1nkq hub] " .. tostring(msg))
+    pcall(function()
+        game:GetService("StarterGui"):SetCore("SendNotification", {
+            Title = "t1nkq hub",
+            Text = tostring(msg),
+            Duration = 6
+        })
+    end)
+end
+
+local okHttp, source = pcall(function()
+    return game:HttpGet(LOADER_URL)
+end)
+
+if not okHttp or type(source) ~= "string" or #source < 10 then
+    notifyError("РќРµ СѓРґР°Р»РѕСЃСЊ РїРѕРґРєР»СЋС‡РёС‚СЊСЃСЏ Рє СЃРµСЂРІРµСЂСѓ t1nkq hub.")
+    return
+end
+
+local fn, compileErr = loadstring(source)
+if not fn then
+    notifyError("РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё РёРЅС‚РµСЂС„РµР№СЃР°.")
+    warn("[t1nkq hub] Compile error:", compileErr)
+    return
+end
+
+local okRun, runErr = pcall(fn)
+if not okRun then
+    notifyError("РћС€РёР±РєР° Р·Р°РїСѓСЃРєР° РёРЅС‚РµСЂС„РµР№СЃР°.")
+    warn("[t1nkq hub] Runtime error:", runErr)
+end
